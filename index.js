@@ -50,11 +50,8 @@ app.get("/api/highscores/:_id", async (req, res) => {
       "-_id highscore"
     ).sort({ highscore: 1 });
 
-    console.log(playersAbove);
-
     const personalRank = playersAbove.length + 1;
 
-    console.log(personalRank);
     let nextScore;
     let nextRank;
 
