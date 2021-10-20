@@ -42,13 +42,19 @@ app.get("/api/highscores/:_id", async (req, res) => {
 
     const playersAbove = await Ranking.find(
       {
-        highscore: { $gte: player.highscore },
-        scoretime: { $lt: player.scoretime }
+        $or: [
+          { highscore: { $gt: player.highscore } },
+          { highscore: player.highscore, scoretime: { $lt: player.scoretime } }
+        ]
       },
       "-_id highscore"
     ).sort({ highscore: 1 });
 
+    console.log(playersAbove);
+
     const personalRank = playersAbove.length + 1;
+
+    console.log(personalRank);
     let nextScore;
     let nextRank;
 
